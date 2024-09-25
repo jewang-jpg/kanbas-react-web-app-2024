@@ -14,7 +14,7 @@ export default function KanbasNavigation() {
         Dashboard
       </Link>
       <br />
-      <Link to="/Kanbas/Dashboard" id="wd-course-link">
+      <Link to="/Kanbas/Courses/1234" id="wd-course-link">
         Courses
       </Link>
       <br />
