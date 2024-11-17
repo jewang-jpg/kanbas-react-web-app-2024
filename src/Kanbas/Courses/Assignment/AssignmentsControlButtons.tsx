@@ -1,13 +1,46 @@
-import { IoEllipsisVertical } from "react-icons/io5";
-import { BsPlus } from "react-icons/bs";
-import GreenCheckmark from "./GreenCheckmark";
+import { CiSearch } from "react-icons/ci";
+import { FaPlus } from "react-icons/fa6";
+import { useLocation, useNavigate } from "react-router";
 
 export default function AssignmentsControlButtons() {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const handleAddAssignment = () => {
+    navigate(pathname + "/AddAssignment");
+  };
+
   return (
-    <div className="float-end text-secondary">
-      <span className="border rounded-pill px-2 py-1 border-secondary fs-6">40% of Total</span>
-      <BsPlus className="fs-4" />
-      <IoEllipsisVertical className="fs-4" />
+    <div id="wd-modules-controls" className="text-nowrap">
+      <button
+        id="wd-add-module-btn"
+        className="btn btn-lg btn-danger me-1 float-end"
+        onClick={handleAddAssignment}
+      >
+        <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
+        Assignments
+      </button>
+      <button
+        id="wd-publish-all-btn"
+        className="btn btn-lg btn-secondary float-end me-1"
+      >
+        <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
+        Group
+      </button>
+      <div
+        className="input-group"
+        style={{ maxWidth: "300px", height: "50px" }}
+      >
+        <span className="input-group-text" id="search-icon">
+          <CiSearch style={{ fontSize: "1.5em" }} />
+        </span>
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Search..."
+          aria-label="Search"
+          aria-describedby="search-icon"
+        />
+      </div>
     </div>
   );
 }

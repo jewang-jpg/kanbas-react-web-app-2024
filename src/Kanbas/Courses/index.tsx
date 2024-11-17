@@ -1,27 +1,21 @@
-import { courses } from "../Database";
-import { Routes, Route, Navigate, useParams, useLocation } from "react-router";
+import { FaAlignJustify } from "react-icons/fa6";
+import { Navigate, Route, Routes, useLocation, useParams } from "react-router";
+import Assignments from "./Assignment";
+import AssignmentEditor from "./Assignment/Editor";
+import AssignmentPreview from "./Assignment/Preview";
 import Home from "./Home";
 import Modules from "./Modules";
 import CoursesNavigation from "./Navigation";
-import Assignments from "./Assignment";
-import AssignmentEditor from "./Assignment/Editor";
 import PeopleTable from "./People/Table";
-import { FaAlignJustify } from "react-icons/fa";
-
-export default function Courses() {
+export default function Courses({ courses }: { courses: any[] }) {
   const { cid } = useParams();
   const course = courses.find((course) => course._id === cid);
-  const location = useLocation();
-
-  const currentSection = location.pathname.split("/").slice(-1)[0];
-
-  const sectionName = currentSection.charAt(0).toUpperCase() + currentSection.slice(1);
-
+  const { pathname } = useLocation();
   return (
     <div id="wd-courses">
       <h2 className="text-danger">
         <FaAlignJustify className="me-4 fs-4 mb-1" />
-        {course && course.name} &gt; {sectionName !== cid ? sectionName : "Home"}
+        {course && course.name} &gt; {pathname.split("/")[4]}
       </h2>
       <hr />
       <div className="d-flex">
@@ -33,10 +27,16 @@ export default function Courses() {
             <Route path="/" element={<Navigate to="Home" />} />
             <Route path="Home" element={<Home />} />
             <Route path="Modules" element={<Modules />} />
-            <Route path="Grades" element={<h1>Grades</h1>} />
             <Route path="Assignments" element={<Assignments />} />
-            <Route path="Assignments/:aid" element={<AssignmentEditor />} />
-            <Route path="Quizzes" element={<h1>Quizzes</h1>} />
+            <Route path="Assignments/:aid" element={<AssignmentPreview />} />
+            <Route
+              path="Assignments/:aid/Edit"
+              element={<AssignmentEditor />}
+            />
+            <Route
+              path="Assignments/AddAssignment"
+              element={<AssignmentEditor />}
+            />
             <Route path="People" element={<PeopleTable />} />
           </Routes>
         </div>
