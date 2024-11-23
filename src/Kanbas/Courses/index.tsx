@@ -1,16 +1,17 @@
-import { FaAlignJustify } from "react-icons/fa6";
 import { Navigate, Route, Routes, useLocation, useParams } from "react-router";
-import Assignments from "./Assignment";
-import AssignmentEditor from "./Assignment/Editor";
-import AssignmentPreview from "./Assignment/Preview";
-import Home from "./Home";
-import Modules from "./Modules";
 import CoursesNavigation from "./Navigation";
-import PeopleTable from "./People/Table";
+import Modules from "./Modules";
+import Home from "./Home";
+import Assignments from "./Assignments";
+import AssignmentEditor from "./Assignments/Editor";
+import { FaAlignJustify } from "react-icons/fa";
+import PeopleTable from "./People/table";
+
 export default function Courses({ courses }: { courses: any[] }) {
   const { cid } = useParams();
   const course = courses.find((course) => course._id === cid);
   const { pathname } = useLocation();
+
   return (
     <div id="wd-courses">
       <h2 className="text-danger">
@@ -25,19 +26,11 @@ export default function Courses({ courses }: { courses: any[] }) {
         <div className="flex-fill">
           <Routes>
             <Route path="/" element={<Navigate to="Home" />} />
-            <Route path="Home" element={<Home />} />
-            <Route path="Modules" element={<Modules />} />
-            <Route path="Assignments" element={<Assignments />} />
-            <Route path="Assignments/:aid" element={<AssignmentPreview />} />
-            <Route
-              path="Assignments/:aid/Edit"
-              element={<AssignmentEditor />}
-            />
-            <Route
-              path="Assignments/AddAssignment"
-              element={<AssignmentEditor />}
-            />
-            <Route path="People" element={<PeopleTable />} />
+            <Route path="/Home" element={<Home />} />
+            <Route path="/Modules" element={<Modules />} />
+            <Route path="/Assignments" element={<Assignments />} />
+            <Route path="/Assignments/:aid" element={<AssignmentEditor />} />
+            <Route path="/People" element={<PeopleTable />} />
           </Routes>
         </div>
       </div>

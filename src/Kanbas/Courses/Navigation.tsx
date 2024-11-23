@@ -1,25 +1,35 @@
 import { Link, useLocation, useParams } from "react-router-dom";
+import * as db from "../Database";
+import ProtectedRoute from "../Account/ProtectedRoute";
 
 export default function CoursesNavigation() {
   const { pathname } = useLocation();
   const { cid } = useParams();
-  const links = ["Home", "Modules", "Piazza", "Zoom", "Assignments", "Quizzes", "Grades", "People"];
+  db.courses.find((course) => course._id === cid);
 
+  const links = [
+    "Home",
+    "Modules",
+    "Piazza",
+    "Zoom",
+    "Assignments",
+    "Quizzes",
+    "People",
+  ];
   return (
     <div id="wd-courses-navigation" className="wd list-group fs-5 rounded-0">
-      {
-        links.map((link) => (
-          <Link id={`wd-course-${link.toLowerCase()}-link`}
+      {links.map((link, index) => (
+        <ProtectedRoute>
+          <Link
+            key={index}
             to={`/Kanbas/Courses/${cid}/${link}`}
-            className={`list-group-item 
-              ${pathname.includes(link) ? "active" : "text-danger"}
-              border border-0`}>
+            className={`list-group-item border-0 border
+              ${pathname.includes(link) ? "active" : "text-danger"}`}
+          >
             {link}
           </Link>
-        )
-        )
-      }
-
+        </ProtectedRoute>
+      ))}
     </div>
   );
 }

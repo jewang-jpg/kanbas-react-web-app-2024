@@ -1,22 +1,17 @@
-body {
-    margin: 0;
-    padding: 0;
-}
-body * {
-    font-family: Arial, Helvetica, sans-serif;
-}
+body   {  margin: 0;  padding: 30;  }
+body * {  font-family: Arial, Helvetica, sans-serif;  }
+
 @media (min-width: 768px) {
-    #wd-kanbas .wd-main-content-offset {
-        padding-left: 140px !important;
-    }
+  #wd-kanbas .wd-main-content-offset {
+    padding-left: 140px !important;
+  }
 }
 
 .list-group.wd > .list-group-item.active {
-    color: black;
-    background-color: white;
-    border-left: 3px solid black !important;
+  color: black;
+  background-color: white;
+  border-left: 3px solid black !important;
 }
-
 
 .btn-secondary {
     --bs-btn-color: #000 !important;
@@ -32,38 +27,5 @@ body * {
 }
 .wd-lesson {
     border-left: 3px solid green !important;
-}
-
-
-.center-icons{
-    margin-top: auto;
-    margin-bottom: auto;
-}
-
-p{
-    color: 	dimgray;
-    font-size: 19px;
-}
-
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
-  
-.modal-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    text-align: center;
-    width: 300px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
   

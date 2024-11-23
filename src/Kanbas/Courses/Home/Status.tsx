@@ -1,49 +1,48 @@
 import { MdDoNotDisturbAlt } from "react-icons/md";
-import { FaCheckCircle } from "react-icons/fa";
+import { FaCircleCheck } from "react-icons/fa6";
 import { BiImport } from "react-icons/bi";
 import { LiaFileImportSolid } from "react-icons/lia";
-import { GrAnnounce } from "react-icons/gr";
-import { HiBellAlert } from "react-icons/hi2";
-import { MdBarChart } from "react-icons/md";
-import { IoHomeSharp } from "react-icons/io5";
 
 export default function CourseStatus() {
   return (
-    <div id="wd-course-status" style={{ width: "300px" }}>
+    <div
+      id="wd-course-status"
+      style={{ width: "300px", transform: "scale(0.8)" }}
+    >
       <h2>Course Status</h2>
       <div className="d-flex">
         <div className="w-50 pe-1">
           <button className="btn btn-lg btn-secondary w-100 text-nowrap ">
-            <MdDoNotDisturbAlt className="me-2 fs-5" /> Unpublish
+            <MdDoNotDisturbAlt className="me-2 fs-5" /> Unpublish{" "}
           </button>
         </div>
         <div className="w-50">
           <button className="btn btn-lg btn-success w-100">
-            <FaCheckCircle className="me-2 fs-5" /> Publish
+            <FaCircleCheck className="me-2 fs-5" /> Publish{" "}
           </button>
         </div>
       </div>
       <br />
       <button className="btn btn-lg btn-secondary w-100 mt-1 text-start">
-        <BiImport className="me-2 fs-5" /> Import Existing Content
+        <BiImport className="me-2 fs-5" /> Import Existing Content{" "}
       </button>
       <button className="btn btn-lg btn-secondary w-100 mt-1 text-start">
-        <LiaFileImportSolid className="me-2 fs-5" /> Import from Commons
+        <LiaFileImportSolid className="me-2 fs-5" /> Import from Commons{" "}
       </button>
       <button className="btn btn-lg btn-secondary w-100 mt-1 text-start">
-        <IoHomeSharp className="me-2 fs-5" /> Choose Home Page
+        <LiaFileImportSolid className="me-2 fs-5" /> Choose Home Page{" "}
       </button>
-      <button className="btn btn-lg btn-secondary w-100 mt-1 text-start">
-        <MdBarChart className="me-2 fs-5" /> View Course Screen
+      <button className="btn btn-lg btn-secondary w-100 mt-1 text-start ">
+        <LiaFileImportSolid className="me-2 fs-5" /> View Course Stream{" "}
       </button>
-      <button className="btn btn-lg btn-secondary w-100 mt-1 text-start">
-        <GrAnnounce className="me-2 fs-5" /> New Accouncement
+      <button className="btn btn-lg btn-secondary w-100 mt-1 text-start ">
+        <LiaFileImportSolid className="me-2 fs-5" /> New Announcement{" "}
       </button>
-      <button className="btn btn-lg btn-secondary w-100 mt-1 text-start">
-        <MdBarChart className="me-2 fs-5" /> New Analytics
+      <button className="btn btn-lg btn-secondary w-100 mt-1 text-start ">
+        <LiaFileImportSolid className="me-2 fs-5" /> New Analytics{" "}
       </button>
-      <button className="btn btn-lg btn-secondary w-100 mt-1 text-start">
-        <HiBellAlert className="me-2 fs-5" /> View Course Notifications
+      <button className="btn btn-lg btn-secondary w-100 mt-1 text-start ">
+        <LiaFileImportSolid className="me-2 fs-5" /> View Course Notifications{" "}
       </button>
     </div>
   );
