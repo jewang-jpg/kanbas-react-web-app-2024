@@ -37,16 +37,13 @@ export default function Assignments() {
     dispatch(deleteAssignment(assignmentId));
   };
   const fetchAssignments = useCallback(async () => {
-    console.log("fetchAssignments called");
     const assignments = await coursesClient.findAssignmentsForCourse(
       cid as string
     );
-    console.log("API Response:", assignments); // Log API response
     dispatch(setAssignment(assignments));
   }, [cid, dispatch]); // Memoize to ensure a stable reference
 
   useEffect(() => {
-    console.log("useEffect triggered");
     fetchAssignments();
   }, [fetchAssignments]);
   return (
@@ -82,20 +79,21 @@ export default function Assignments() {
                   <div className="assignment-details">
                     <Link
                       className="fw-bold ps-0"
-                      to={`/Kanbas/Courses/${cid}/assignments/${assignment._id}`}
+                      to={`/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}
                     >
-                      {assignment._id}
+                      {assignment.title}
                     </Link>
+                    <p className="">{assignment.description}</p>
                     <div className="d-flex align-items-center">
                       <span className="text-danger">Multiple Modules</span>
                       <span className="mx-2">|</span>
                       <span className="text-muted">
                         <b>Not available until</b>{" "}
-                        {assignment.availableDateString}
+                        {assignment.startDate}
                       </span>
                       <span className="mx-2">|</span>
                       <span className="text-muted">
-                        <b>Due</b> {assignment.dueDateString} |{" "}
+                        <b>Due</b> {assignment.dueDate} |{" "}
                         {assignment.points} pts
                       </span>
                     </div>

@@ -42,7 +42,7 @@ export default function ModuleEditor({
               className="btn btn-secondary"
               data-bs-dismiss="modal"
             >
-              Cancel{" "}
+              Cancel
             </button>
             <button
               onClick={addModule}
@@ -50,7 +50,7 @@ export default function ModuleEditor({
               data-bs-dismiss="modal"
               className="btn btn-danger"
             >
-              Add Module{" "}
+              Add Module
             </button>
           </div>
         </div>

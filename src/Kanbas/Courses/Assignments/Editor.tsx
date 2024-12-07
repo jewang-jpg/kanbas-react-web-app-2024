@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import React from "react";
+import * as coursesClient from "../client";
+import * as assignmentsClient from "./client";
 import {
   addAssignment,
   updateAssignment,
@@ -9,41 +11,41 @@ import {
 } from "./reducer";
 
 export default function AssignmentEditor() {
-  const { assignmentId, cid } = useParams();
+  const { aid, cid } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { assignments } = useSelector((state: any) => state.assignmentsReducer);
-  const isNewAssignment = !assignments.some(
-    (existingAssignment: any) => existingAssignment._id === assignmentId
-  );
+  const isNewAssignment = useMemo(() => aid === "Editor", [aid]);
   const [assignment, setAssignment] = useState({
-    _id: "",
+    _id: aid,
     title: "",
-    course: cid,
+    courseId: cid,
     description: "",
     points: 100,
     dueDate: "",
-    dueDateString: "",
-    availableDate: "",
-    availableDateString: "",
+    startDate: "",
   });
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { id, value } = e.target;
-    setAssignment((prev) => ({ ...prev, [id]: value }));
-  };
-  const handleSave = () => {
-    if (isNewAssignment) {
-      const newAssignment = {
-        ...assignment,
-        _id: new Date().getTime().toString(),
-        course: cid,
-      };
-      console.log(newAssignment);
-      dispatch(updateAssignment(newAssignment));
-      dispatch(addAssignment(newAssignment));
+    if (id.endsWith("Date")) {
+      setAssignment((prev) => ({
+        ...prev,
+        // date to normal format (yyyy-mm-ddThh:mm)
+        [id]: new Date(value).toISOString().split(".")[0],
+      }));
     } else {
+      setAssignment((prev) => ({ ...prev, [id]: value }));
+    }
+  };
+  const handleSave = async () => {
+    if (isNewAssignment) {
+      const result = await coursesClient.createAssignmentForCourse(cid!, assignment);
+      dispatch(updateAssignment(result));
+      dispatch(addAssignment(result));
+    } else {
+      await assignmentsClient.updateAssignment(assignment);
       dispatch(updateAssignment(assignment));
     }
     navigate(-1);
@@ -52,13 +54,15 @@ export default function AssignmentEditor() {
     navigate(-1);
   };
   useEffect(() => {
-    const assignmentData = assignments.find((a: any) => a._id === assignmentId);
+    const assignmentData = assignments.find((a: any) => a._id === aid);
+    console.log(assignmentData)
     if (assignmentData) {
+      setAssignment(assignmentData);
       dispatch(updateAssignment(assignment));
     } else {
       dispatch(cancelAssignmentUpdate());
     }
-  }, [dispatch, assignmentId]);
+  }, [dispatch, aid]);
   return (
     <div id="wd-assignment-editor" className="p-4">
       <div className="mb-4">
@@ -217,61 +221,29 @@ export default function AssignmentEditor() {
           </div>
           <div className="col-md-9">
             <div className="form-control">
-              <br />
-              <label htmlFor="wd-submission-type" className="form-label">
-                <h6>
-                  <b>Assign To</b>
-                </h6>
-              </label>
-              <div className="col-9">
-                <input
-                  type="text"
-                  id="wd-assign-to"
-                  className="form-control"
-                  value="Everyone"
-                />
-              </div>
-              <br />
-              <div className="col-3">
-                <label htmlFor="wd-due-date">
-                  <h6>
-                    <b>Due</b>
-                  </h6>
-                </label>
-              </div>
-              <div className="col-9">
-                <input
-                  type="datetime-local"
-                  id="wd-due-date"
-                  className="form-control"
-                  value={assignment.dueDate}
-                  onChange={handleChange}
-                />
-              </div>
-              <br />
               <div className="row">
                 <div className="col-md-6 mb-3">
-                  <label htmlFor="wd-available-from" className="form-label">
+                  <label htmlFor="startDate" className="form-label">
                     <strong>Available from</strong>
                   </label>
                   <div className="input-group">
                     <input
                       type="datetime-local"
-                      id="wd-due-date"
+                      id="startDate"
                       className="form-control"
-                      value={assignment.availableDate}
+                      value={assignment.startDate}
                       onChange={handleChange}
                     />
                   </div>
                 </div>
                 <div className="col-md-6 mb-3">
-                  <label htmlFor="wd-available-until" className="form-label">
+                  <label htmlFor="dueDate" className="form-label">
                     <strong>Until</strong>
                   </label>
                   <div className="input-group">
                     <input
                       type="datetime-local"
-                      id="wd-due-date"
+                      id="dueDate"
                       className="form-control"
                       value={assignment.dueDate}
                       onChange={handleChange}
