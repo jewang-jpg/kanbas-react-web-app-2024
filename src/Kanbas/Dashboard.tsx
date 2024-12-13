@@ -25,12 +25,7 @@ export default function Dashboard(
   const handleUnenroll = (courseId: any) => {
     dispatch(unenrollFromCourse({ userId: currentUser._id, courseId }));
   };
-  const displayedCourses = showAllCourses
-    ? courses
-    : courses.filter((course) => enrollments.some(
-      (enrollment: any) =>
-        enrollment.user === currentUser._id &&
-        enrollment.course === course._id));
+  const displayedCourses = courses;
   
   return (
     <div id="wd-dashboard">
